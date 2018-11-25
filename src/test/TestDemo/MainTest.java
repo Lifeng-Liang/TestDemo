@@ -119,7 +119,7 @@ public class MainTest {
 
     @Test
     public void testUrlWithRuleFirst2AndParameter() throws Exception {
-        UrlRule rule = new UrlRule (true);
+        UrlRule rule = new UrlRule(true);
         rule.Renames.add("segments=2");
         rule.Renames.add("parameter=test");
         AssertIs("http://www.sina.com/test/1/2/3/", "External/HTTP/www.sina.com:80/test/1/", rule);
@@ -136,5 +136,18 @@ public class MainTest {
         rule.Renames.add("segments=2");
         rule.Renames.add("host=true");
         AssertIs("http://www.sina.com/test/1/2/3/", "External/HTTP/www.sina.com:80/test/1/", rule);
+    }
+
+    @Test
+    public void testUrlNotMatch() throws Exception {
+        var rule = new UrlRule(false);
+        rule.Renames.add("segments=3");
+        AssertIs("http://www.sina.com/test/1/2/3/", "External/HTTP/www.sina.com:80/test/1/");
+        AssertIs("http://www.sina.com/", "External/HTTP/www.sina.com:80//");
+        AssertIs("http://www.sina.com", "External/HTTP/www.sina.com:80//");
+        AssertIs("http://www.sina.com/test/1", "External/HTTP/www.sina.com:80/test/1/");
+        AssertIs("http://www.sina.com/test/1/", "External/HTTP/www.sina.com:80/test/1/");
+        AssertIs("http://www.sina.com/test", "External/HTTP/www.sina.com:80/test/");
+        AssertIs("http://www.sina.com:900/test", "External/HTTP/www.sina.com:900/test/");
     }
 }

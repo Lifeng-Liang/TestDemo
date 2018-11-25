@@ -1,5 +1,9 @@
 package TestDemo;
 
+import java.util.List;
+
+import TestDemo.RuleParser.IRenameRule;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
@@ -15,6 +19,12 @@ public class Main {
     }
 
     public static String convert(String url, UrlRule rule) throws Exception {
-        return null;
+        Url u = new Url(url);
+        Result result = new Result("External/");
+        List<IRenameRule> rules = RuleParser.Parse(rule);
+        for (IRenameRule r : rules) {
+            r.Rename(u, result);
+        }
+        return result.Text;
     }
 }
