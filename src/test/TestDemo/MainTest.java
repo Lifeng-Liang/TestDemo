@@ -134,7 +134,7 @@ public class MainTest {
     public void testUrlWithUnexpectedRule() throws Exception {
         UrlRule rule = new UrlRule(true);
         rule.Renames.add("segments=2");
-        rule.Renames.add("host=true");
+        rule.Renames.add("useragent=true");
         AssertIs("http://www.sina.com/test/1/2/3/", "External/HTTP/www.sina.com:80/test/1/", rule);
     }
 
